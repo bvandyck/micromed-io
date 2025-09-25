@@ -361,7 +361,7 @@ def _read_header(f):
     for _ in range(N_ZONES):
         zname, pos, length = unpack("8sII", f[i_b : i_b + 16])
         i_b += 16
-        zname = zname.decode(ENCODING).strip()
+        zname = zname.decode(ENCODING).strip("\x00 ")
         zones[zname] = pos, length
 
     pos, length = zones["ORDER"]
@@ -527,6 +527,7 @@ HEADER_TYPE = {
     2: 'Micromed "System 2" Header type',
     3: 'Micromed "System98" Header type',
     4: 'Micromed "System98" Header type',
+    5: 'Natus "Brain Quick" Header type',
 }
 
 UNITS = {
